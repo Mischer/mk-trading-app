@@ -6,6 +6,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Trade } from '../binance/models/trades-response';
 import { Model } from 'mongoose';
 import { omit } from 'lodash';
+import { AnalyzeTradesDto } from './dto/analyze-trades.dto';
 
 @Injectable()
 export class TradesService {
