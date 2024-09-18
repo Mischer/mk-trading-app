@@ -10,8 +10,14 @@ export class TradesController {
 		return this.tradesService.fetchAndStoreTrades(symbol);
 	}
 
-	/*	@Get('analyze')
-	async fetchAnStoreTrades(@Param() symbol: SymbolEnum, @Param() startDate: Date, @Param() endDate: Date) {
-		return this.tradesService.analyze(symbol);
-	}*/
+	@Get('/analyze')
+	async fetchAndStoreTrades(
+		@Query('symbol') symbol: SymbolEnum,
+		@Query('startDate') startDate: string,
+		@Query('endDate') endDate: string,
+	) {
+		const start = new Date(startDate);
+		const end = new Date(endDate);
+		return this.tradesService.analyze(symbol, start, end);
+	}
 }

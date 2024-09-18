@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { SymbolEnum } from '../types/symbol-enum';
 import { TradeModel } from './models/trade-model';
 import { BinanceService } from '../binance/binance.service';
@@ -28,5 +28,31 @@ export class TradesService {
 			};
 		});
 		return this.tradeModel.insertMany(tradesToSave, { ordered: false }); // to store max trades received
+	}
+
+	async analyze(symbol: SymbolEnum, startDate: Date, endDate: Date): Promise<AnalyzeTradesDto> {
+		const trades = await this.tradeModel
+			.find({
+				symbol: symbol,
+				time: { $gte: startDate, $lte: endDate },
+			})
+			.sort({ time: 1 })
+			.exec();
+
+		if (trades.length === 0) {
+			throw new NotFoundException('No trades found in the given time range.');
+		}
+
+		const firstTrade = trades[0];
+		const lastTrade = trades[trades.length - 1];
+
+		const startPrice = parseFloat(firstTrade.price);
+		const endPrice = parseFloat(lastTrade.price);
+
+		return {
+			startPrice: startPrice,
+			endPrice: endPrice,
+			isPriceGrows: endPrice > startPrice,
+		};
 	}
 }
