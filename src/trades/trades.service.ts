@@ -2,10 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { SymbolEnum } from '../types/symbol-enum';
 import { TradeModel } from './models/trade-model';
 import { BinanceService } from '../binance/binance.service';
-// import { Trade } from '../binance/models/trades-response';
 import { InjectModel } from '@nestjs/mongoose';
 import { Trade } from '../binance/models/trades-response';
-// import _ from 'lodash';
+import _ from 'lodash';
 
 @Injectable()
 export class TradesService {
