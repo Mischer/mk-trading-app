@@ -13,7 +13,7 @@ export class BinanceService {
 		this.binanceApiUrl = configService.get('BINANCE_API_URL');
 		this.logger = new Logger(BinanceService.name);
 	}
-	async fetchAndStoreTrades(symbol: SymbolEnum): Promise<TradesResponse> {
+	async fetchTrades(symbol: SymbolEnum): Promise<TradesResponse> {
 		try {
 			const response: AxiosResponse<TradesResponse> = await axios.get<TradesResponse>(
 				`${this.binanceApiUrl}/api/v3/trades`,
@@ -24,7 +24,7 @@ export class BinanceService {
 				},
 			);
 
-			return response;
+			return response.data;
 		} catch (error) {
 			this.logger.error('Failed to fetching trades', error);
 			throw new InternalServerErrorException('Failed to fetching trades');
