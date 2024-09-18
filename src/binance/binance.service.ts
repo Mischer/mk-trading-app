@@ -16,12 +16,7 @@ export class BinanceService {
 	async fetchTrades(symbol: SymbolEnum): Promise<TradesResponse> {
 		try {
 			const response: AxiosResponse<TradesResponse> = await axios.get<TradesResponse>(
-				`${this.binanceApiUrl}/api/v3/trades`,
-				{
-					params: {
-						symbol,
-					},
-				},
+				`${this.binanceApiUrl}/api/v3/trades?symbol=${symbol}`,
 			);
 
 			return response.data;

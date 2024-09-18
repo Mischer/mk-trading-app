@@ -4,6 +4,7 @@ import { TradeModel } from './models/trade-model';
 import { BinanceService } from '../binance/binance.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Trade } from '../binance/models/trades-response';
+import { Model } from 'mongoose';
 import _ from 'lodash';
 
 @Injectable()

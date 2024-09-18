@@ -2,7 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { SymbolEnum } from '../types/symbol-enum';
 import { TradesService } from './trades.service';
 
-@Controller('trades')
+@Controller('/v1/trades')
 export class TradesController {
 	constructor(private readonly tradesService: TradesService) {}
 	@Get('/:symbol')

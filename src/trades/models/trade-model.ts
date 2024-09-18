@@ -1,5 +1,5 @@
-import { Prop, Schema } from '@nestjs/mongoose';
-import Document from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 import { SymbolEnum } from '../../types/symbol-enum';
 
 @Schema()
@@ -19,3 +19,5 @@ export class TradeModel extends Document {
 	@Prop({ required: true })
 	isBestMatch: boolean;
 }
+
+export const TradeShema = SchemaFactory.createForClass(TradeModel);
