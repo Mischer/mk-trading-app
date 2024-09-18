@@ -45,13 +45,50 @@ describe('TradesController (e2e) with real MongoDB in-memory', () => {
 		await tradeModel.deleteMany({});
 	});
 
-	it('should fetch and store trades', async () => {
+	it('should fetch and store trades fetchAnStoreTrades/v1/trades/storeTrades (GET)', async () => {
 		const symbol = SymbolEnum.BTC_USDT;
-		await request(app.getHttpServer()).get(`/v1/trades/${symbol}`).expect(200);
+		await request(app.getHttpServer()).get(`/v1/trades/storeTrades/${symbol}`).expect(200);
 
 		const tradesInDb = await tradeModel.find().exec();
 
 		expect(tradesInDb).toHaveLength(500);
 		expect(tradesInDb[0].symbol).toBe(symbol);
+	});
+
+	it('should return correct price analysis /v1/trades/analyzePrice (GET)', async () => {
+		await tradeModel.create([
+			{
+				symbol: SymbolEnum.BTC_USDT,
+				price: '50000',
+				qty: '0.1',
+				quoteQty: '5000',
+				time: new Date('2023-01-01T10:00:00Z'),
+				isBuyerMaker: false,
+				isBestMatch: true,
+			},
+			{
+				symbol: SymbolEnum.BTC_USDT,
+				price: '51000',
+				qty: '0.1',
+				quoteQty: '5100',
+				time: new Date('2023-01-01T12:00:00Z'),
+				isBuyerMaker: false,
+				isBestMatch: true,
+			},
+		]);
+
+		const symbol = SymbolEnum.BTC_USDT;
+		const startDate = '2023-01-01T09:00:00Z';
+		const endDate = '2023-01-01T13:00:00Z';
+
+		const response = await request(app.getHttpServer())
+			.get(`/v1/trades/analyzePrice?symbol=${symbol}&startDate=${startDate}&endDate=${endDate}`)
+			.expect(200);
+
+		expect(response.body).toEqual({
+			startPrice: 50000,
+			endPrice: 51000,
+			isPriceGrows: true,
+		});
 	});
 });

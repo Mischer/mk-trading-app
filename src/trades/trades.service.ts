@@ -31,7 +31,7 @@ export class TradesService {
 		return this.tradeModel.insertMany(tradesToSave, { ordered: false }); // to store max trades received
 	}
 
-	async analyze(symbol: SymbolEnum, startDate: Date, endDate: Date): Promise<AnalyzeTradesDto> {
+	async analyzePrice(symbol: SymbolEnum, startDate: Date, endDate: Date): Promise<AnalyzeTradesDto> {
 		const trades = await this.tradeModel
 			.find({
 				symbol: symbol,
