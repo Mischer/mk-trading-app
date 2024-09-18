@@ -15,7 +15,7 @@ export class BinanceService {
 	}
 	public async fetchTrades(symbol: SymbolEnum): Promise<TradesResponse> {
 		try {
-			const response: AxiosResponse<TradesResponse> = await axios.get<TradesResponse>(
+			const response: AxiosResponse<TradesResponse> = await axios.get<TradesResponse>( // Don't integrate binance node lib for only one endpoint
 				`${this.binanceApiUrl}/api/v3/trades`,
 				{
 					params: {
