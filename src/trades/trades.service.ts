@@ -5,7 +5,7 @@ import { BinanceService } from '../binance/binance.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Trade } from '../binance/models/trades-response';
 import { Model } from 'mongoose';
-import _ from 'lodash';
+import { omit } from 'lodash';
 
 @Injectable()
 export class TradesService {
@@ -24,7 +24,7 @@ export class TradesService {
 			return {
 				symbol,
 				time: new Date(trade.time),
-				..._.omit(trade, 'id', 'timestamp'),
+				...omit(trade, 'id', 'timestamp'),
 			};
 		});
 		return this.tradeModel.insertMany(tradesToSave, { ordered: false }); // to store max trades received

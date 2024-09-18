@@ -6,7 +6,7 @@ import { TradesService } from './trades.service';
 export class TradesController {
 	constructor(private readonly tradesService: TradesService) {}
 	@Get('/:symbol')
-	async fetchAnStoreTrades(@Param() symbol: SymbolEnum) {
+	async fetchAnStoreTrades(@Param('symbol') symbol: SymbolEnum) {
 		return this.tradesService.fetchAndStoreTrades(symbol);
 	}
 
