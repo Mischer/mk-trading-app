@@ -20,4 +20,4 @@ export class TradeModel extends Document {
 	isBestMatch: boolean;
 }
 
-export const TradeShema = SchemaFactory.createForClass(TradeModel);
+export const TradeSchema = SchemaFactory.createForClass(TradeModel);
