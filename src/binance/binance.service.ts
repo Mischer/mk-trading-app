@@ -13,10 +13,15 @@ export class BinanceService {
 		this.binanceApiUrl = configService.get('BINANCE_API_URL');
 		this.logger = new Logger(BinanceService.name);
 	}
-	async fetchTrades(symbol: SymbolEnum): Promise<TradesResponse> {
+	public async fetchTrades(symbol: SymbolEnum): Promise<TradesResponse> {
 		try {
 			const response: AxiosResponse<TradesResponse> = await axios.get<TradesResponse>(
-				`${this.binanceApiUrl}/api/v3/trades?symbol=${symbol}`,
+				`${this.binanceApiUrl}/api/v3/trades`,
+				{
+					params: {
+						symbol,
+					},
+				},
 			);
 
 			return response.data;

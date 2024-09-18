@@ -9,4 +9,9 @@ export class TradesController {
 	async fetchAnStoreTrades(@Param() symbol: SymbolEnum) {
 		return this.tradesService.fetchAndStoreTrades(symbol);
 	}
+
+	/*	@Get('analyze')
+	async fetchAnStoreTrades(@Param() symbol: SymbolEnum, @Param() startDate: Date, @Param() endDate: Date) {
+		return this.tradesService.analyze(symbol);
+	}*/
 }
