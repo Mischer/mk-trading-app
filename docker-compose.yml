@@ -1,0 +1,12 @@
+version: '3'
+services:
+  database:
+    image: mongo:7.0
+    container_name: mongo7-container
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo-data:/data/db

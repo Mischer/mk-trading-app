@@ -8,6 +8,11 @@ Simple trading app
 $ npm install
 ```
 
+## Docker setup
+```bash
+$ docker-compose up
+```
+
 ## Compile and run the project
 
 ```bash
